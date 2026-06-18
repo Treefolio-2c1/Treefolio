@@ -7,5 +7,16 @@
 </head>
 <body>
     
+<h1>Index</h1>
+
+<a href="auth/cadastro.php">
+    <button>Cadastro</button>
+</a>
+<a href="auth/login.html">
+    <button>login</button>
+</a>
+
+
+
 </body>
 </html>
