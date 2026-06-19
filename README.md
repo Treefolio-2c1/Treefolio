@@ -64,13 +64,13 @@ Fontes: Fonte geométrica contemporânea, sem serifa, focada em legibilidade dig
 
 Dados Fictícios da Empresa:
 
-Telefone: XXXX
+Telefone: 11 91744-6087
 
 E-mail: treefolio0@gmail.com
 
-Endereço: XXXX
+Endereço: Avenida Paulista, 1728 – Bela Vista, São Paulo – SP, CEP 01310-919.
 
-Redes Sociais: XXXX
+Redes Sociais: @treefolio_ (Instagram)
 
 6️⃣ Estrutura Inicial do Site
 
