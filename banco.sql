@@ -7,7 +7,8 @@ nome varchar(50),
 email varchar(50) unique,
 fone  varchar(20) unique,
 status enum('ativo', 'inativo') default 'ativo',
-foto varchar(255)
+foto varchar(255),
+senha varchar(500)
 );
 
 create table projetos (
