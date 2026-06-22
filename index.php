@@ -15,16 +15,7 @@
 <!-- ── NAVBAR ── -->
 <nav class="navbar">
   <a class="navbar__logo" href="index.php">
-    <svg width="34" height="34" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
-      <path d="M10 28 Q10 18 20 15 Q30 18 30 28" stroke="var(--color-accent)" stroke-width="2.5" fill="none" stroke-linecap="round"/>
-      <path d="M20 15 L20 8" stroke="var(--color-accent)" stroke-width="2" stroke-linecap="round"/>
-      <path d="M20 10 L16 6 M20 10 L24 6" stroke="var(--color-accent)" stroke-width="1.8" stroke-linecap="round"/>
-      <circle cx="20" cy="8" r="1.5" fill="var(--color-accent)"/>
-      <circle cx="15.5" cy="5.5" r="1.5" fill="var(--color-accent)"/>
-      <circle cx="24.5" cy="5.5" r="1.5" fill="var(--color-accent)"/>
-      <path d="M7 30 Q7 22 20 20 Q33 22 33 30" stroke="var(--color-accent)" stroke-width="2" fill="none"/>
-      <path d="M4 30 Q4 16 20 12 Q36 16 36 30" stroke="var(--color-accent)" stroke-width="1.5" fill="none" opacity=".35"/>
-    </svg>
+    <img src="Static/img/logo.svg" alt="Treefolio logo">
     <span class="navbar__logo-text">tree<span>folio</span></span>
   </a>
   <div class="navbar__actions">
