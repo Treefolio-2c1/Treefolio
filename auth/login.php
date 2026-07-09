@@ -1,33 +1,18 @@
 <?php
-session_start();
 
-if($_SERVER["REQUEST_METHOD"] == "POST"){
+$email = $_POST['email'];
+$senha = $_POST['senha'];
 
-    $email = $_POST['email'];
-    $senha = $_POST['senha'];
-
-    if(isset($_SESSION['usuario'])){
-
-        $user = $_SESSION['usuario'];
-
-        if($email === $user['email'] && password_verify($senha, $user['senha'])){
-            $_SESSION['logado'] = true;
-            echo "Login OK <br>";
-            echo "<a href='dashboard.php'>Ir pro sistema</a>";
-        } else {
-            echo "Email ou senha inválidos";
-        }
-
-    } else {
-        echo "Nenhum usuário cadastrado";
-    }
-}
+header("location:index.php");
+exit;
 ?>
 
 <!DOCTYPE html>
 <html>
 <head>
+
     <title>Login</title>
+    
 </head>
 <body>
 

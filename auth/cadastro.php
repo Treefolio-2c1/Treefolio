@@ -1,7 +1,4 @@
 <?php
-session_start();
-
-if($_SERVER["REQUEST_METHOD"] == "POST"){
 
     require_once "../config/conexao.php";
 
@@ -15,26 +12,19 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
         exit;
     }
 
-    $senhaHash = password_hash($senha, PASSWORD_DEFAULT);
+    $sql = "INSERT INTO usuario (nome, email, senha)
+            VALUES (?, ?, ?) " ;
 
-    $sql = "SELECT * FROM usuario WHERE email = ?";
     $stmt = $pdo->prepare($sql);
-    $stmt->execute([$email]);
 
-    if($stmt->rowCount() > 0){
-        echo "Email já cadastrado";
-        exit;
-    }
+    $stmt->execute([
+    $nome,
+    $email,
+    $senha
+    ]);
 
-    $sql = "INSERT INTO usuario (nome, email, senha) VALUES (?, ?, ?)";
-    $stmt = $pdo->prepare($sql);
-    $stmt->execute([$nome, $email, $senhaHash]);
-
-    $_SESSION['email'] = $email;
-
-    header("Location: email.php");
+    header("location: email.php");
     exit;
-}
 ?>
 
 <!DOCTYPE html>
