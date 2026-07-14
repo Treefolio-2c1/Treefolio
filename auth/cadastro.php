@@ -1,5 +1,5 @@
 <?php
-<<<<<<< HEAD
+
 
     require_once "../config/conexao.php";
 
@@ -33,41 +33,8 @@
 <head>
     <meta charset="UTF-8">
     <title>Cadastro</title>
-=======
-session_start();
 
-$erro = '';
 
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    require_once "../config/conexao.php";
-
-    $nome     = trim($_POST['nome']);
-    $email    = trim($_POST['email']);
-    $senha    = $_POST['senha'];
-    $confirmar = $_POST['confirmar'];
-
-    if ($senha !== $confirmar) {
-        $erro = "As senhas não coincidem.";
-    } else {
-        $sql  = "SELECT * FROM usuario WHERE email = ?";
-        $stmt = $pdo->prepare($sql);
-        $stmt->execute([$email]);
-
-        if ($stmt->rowCount() > 0) {
-            $erro = "Este e-mail já está cadastrado.";
-        } else {
-            $hash = password_hash($senha, PASSWORD_DEFAULT);
-            $sql  = "INSERT INTO usuario (nome, email, senha) VALUES (?, ?, ?)";
-            $stmt = $pdo->prepare($sql);
-            $stmt->execute([$nome, $email, $hash]);
-
-            $_SESSION['email'] = $email;
-            header("Location: login.php");
-            exit;
-        }
-    }
-}
-?>
 <!DOCTYPE html>
 <html lang="pt-BR" data-theme="light">
 <head>
@@ -96,7 +63,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
   </div>
 </nav>
 
-<<<<<<< HEAD
+
 <form method="POST">
     <input type="text" name="nome" placeholder="Nome" required><br><br>
     <input type="email" name="email" placeholder="Email" required><br><br>
@@ -105,7 +72,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <button type="submit">Cadastrar</button>
 </form>
 =======
-<!-- AUTH PAGE -->
+
 <div class="auth-page">
   <div class="card auth-card card--elevated">
 
