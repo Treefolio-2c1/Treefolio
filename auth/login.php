@@ -1,11 +1,4 @@
-<?php
 
-$email = $_POST['email'];
-$senha = $_POST['senha'];
-
-header("location:index.php");
-exit;
-?>
 
 <!DOCTYPE html>
 <html>
@@ -30,3 +23,37 @@ exit;
 
 </body>
 </html>
+
+<?php
+
+session_start();
+
+include "config/conexao.php";
+
+$email = $_POST['email'];
+$senha = $_POST['senha'];
+
+    $sql = "SELECT email, senha FROM usuario WHERE email = ? AND senha = ?";
+
+    $stmt = $pdo->prepare($sql);
+
+    $stmt->execute([
+    $email,
+    $senha
+    ]);
+
+    $usuario = $stmt->fetch();
+
+    if($usuario){
+    $_SESSION["id_user"] = $usuario["id_user"];
+    $_SESSION["nome"] = $usuario["nome"];
+
+    header("Location: index.php");
+    exit;
+    }
+    else{
+    echo "E-mail ou senha inválidos.";
+    }
+
+
+?>
