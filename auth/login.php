@@ -1,4 +1,40 @@
+<?php
 
+session_start();
+
+include "config/conexao.php";
+
+    if($_SERVER ["REQUEST_METHOD"] == "POST"){
+        $email = $_POST['email'];
+        $senha = $_POST['senha'];
+    }
+
+    $sql = "SELECT * FROM usuario WHERE email = ?";
+
+    $stmt = $pdo->prepare($sql);
+
+    $stmt->execute([
+    $email,
+    $senha
+    ]);
+
+
+
+    $usuario = $stmt->fetch();
+
+    if($usuario){
+    $_SESSION["id_user"] = $usuario["id_user"];
+    $_SESSION["nome"] = $usuario["nome"];
+
+    header("Location: index.php");
+    exit;
+    }
+    else{
+    echo "E-mail ou senha inválidos.";
+    }
+
+
+?>
 
 <!DOCTYPE html>
 <html>
@@ -24,36 +60,3 @@
 </body>
 </html>
 
-<?php
-
-session_start();
-
-include "config/conexao.php";
-
-$email = $_POST['email'];
-$senha = $_POST['senha'];
-
-    $sql = "SELECT email, senha FROM usuario WHERE email = ? AND senha = ?";
-
-    $stmt = $pdo->prepare($sql);
-
-    $stmt->execute([
-    $email,
-    $senha
-    ]);
-
-    $usuario = $stmt->fetch();
-
-    if($usuario){
-    $_SESSION["id_user"] = $usuario["id_user"];
-    $_SESSION["nome"] = $usuario["nome"];
-
-    header("Location: index.php");
-    exit;
-    }
-    else{
-    echo "E-mail ou senha inválidos.";
-    }
-
-
-?>
