@@ -17,6 +17,8 @@
 </head>
 <body>
 
+<img src="Static/img/newlogo.svg" alt="logo_treefolio" width=200>
+
 <h1>Index</h1>
 
 <button onclick="window.location.href='auth/cadastro.php'">
