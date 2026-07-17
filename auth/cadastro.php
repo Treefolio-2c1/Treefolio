@@ -89,9 +89,7 @@
     Voltar
 </button>
 
-<footer class="footer">
-<strong>treefolio</strong> 
-</footer>
+<?php include "../includes/footer.php"; ?>
 
 </body>
 </html>

@@ -67,6 +67,8 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
     <button type="submit">Logar</button>
 </form>
 
+<?php include "../includes/footer.php"; ?>
+
 </body>
 </html>
 
