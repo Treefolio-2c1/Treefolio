@@ -1,7 +1,8 @@
 <?php
 
 
-    require_once "../config/conexao.php";
+    require_once("../config/conexao.php");
+    require_once __DIR__ . "/../config/brevo.php";
 
 
     if($_SERVER["REQUEST_METHOD"] == "POST"){
@@ -9,7 +10,7 @@
         $email = $_POST['email'];
         $senha = $_POST['senha'];
         $confirmar = $_POST['confirmar'];
-    }
+    
     
     if($senha !== $confirmar){
         echo "Senhas não coincidem";
@@ -18,35 +19,59 @@
 
     $senha = password_hash($senha, PASSWORD_DEFAULT);
 
-    $sql = "INSERT INTO usuario (nome, email, senha)
-            VALUES (?, ?, ?) " ;
+    $token = bin2hex(random_bytes(32));
+
+    $sql = "INSERT INTO usuario (nome, email, senha, ativo, token)
+            VALUES (?, ?, ?, ?, ?)";
 
     $stmt = $pdo->prepare($sql);
 
     $stmt->execute([
-    $nome,
-    $email,
-    $senha
+        $nome,
+        $email,
+        $senha,
+        0,
+        $token
     ]);
 
-    header("location: email.php");
+    $link = "http://192.168.1.11/Treefolio/auth/confirmar.php?token=".$token;
+
+    $assunto = "Confirme sua conta";
+
+    $mensagem = "
+    <h2>Bem-vindo ao Treefolio!</h2>
+
+    <p>Clique no botão abaixo para confirmar sua conta.</p>
+
+    <p>
+        <a href='$link'>Confirmar conta</a>
+    </p>    
+    ";
+
+    $resposta = enviar_email(
+        $email,
+        $nome,
+        $assunto,
+        $mensagem
+    );
+
+    if (strpos($resposta, "Erro:") !== false) {
+        die($resposta);
+    }
+
+    header("Location: email.php");
     exit;
+    }    
 ?>
-
-
-
-<!DOCTYPE html>
-<html lang="pt-br">
-<head>
-    <meta charset="UTF-8">
-    <title>Cadastro</title>
 
 <!DOCTYPE html>
 <html lang="pt-BR" data-theme="light">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="Static/Styles/style.css">
     <title>Criar conta — Treefolio</title>
+
 </head>
 <body>
 
@@ -57,6 +82,12 @@
     <input type="password" name="confirmar" placeholder="Confirmar senha" required><br><br>
     <button type="submit">Cadastrar</button>
 </form>
+
+<br>
+
+<button onclick="window.location.href='../index.php'">
+    Voltar
+</button>
 
 <footer class="footer">
 <strong>treefolio</strong> 

@@ -2,43 +2,53 @@
 
 session_start();
 
-include "config/conexao.php";
+require_once "../config/conexao.php";
 
-    if($_SERVER ["REQUEST_METHOD"] == "POST"){
-        $email = $_POST['email'];
-        $senha = $_POST['senha'];
-    }
+if($_SERVER["REQUEST_METHOD"] == "POST"){
+
+    $email = $_POST["email"];
+    $senha = $_POST["senha"];
+
 
     $sql = "SELECT * FROM usuario WHERE email = ?";
 
     $stmt = $pdo->prepare($sql);
 
     $stmt->execute([
-    $email,
-    $senha
+        $email
     ]);
-
 
 
     $usuario = $stmt->fetch();
 
-    if($usuario){
+
+    if(!$usuario){
+        echo "Email ou senha inválidos";
+        exit;
+    }
+
+
+    if(!password_verify($senha, $usuario["senha"])){
+        echo "Email ou senha inválidos";
+        exit;
+    }
+
+
     $_SESSION["id_user"] = $usuario["id_user"];
     $_SESSION["nome"] = $usuario["nome"];
+    $_SESSION["email"] = $usuario["email"];
 
-    header("Location: index.php");
+    header("Location: ../index.php");
     exit;
-    }
-    else{
-    echo "E-mail ou senha inválidos.";
-    }
 
+}
 
 ?>
 
 <!DOCTYPE html>
 <html>
 <head>
+    <link rel="stylesheet" href="Static/Styles/style.css">
 
     <title>Login</title>
     

@@ -21,7 +21,7 @@ function enviar_email($destinatario, $nome, $assunto, $mensagem)
     ];
 
 
-
+   
     $curl = curl_init();
 
     curl_setopt_array($curl, [
