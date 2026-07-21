@@ -13,7 +13,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="Static/Styles/style.css">
-  <title>Treefolio — Gerencie seu portfólio com inteligência</title>
+  <title>Treefolio</title>
 </head>
 <body>
 

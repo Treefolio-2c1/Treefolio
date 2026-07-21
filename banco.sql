@@ -7,11 +7,12 @@ create table usuario (
     email varchar(50) unique,
     fone  varchar(20) unique,
     status enum('ativo', 'inativo') default 'ativo',
-    foto varchar(255),
     senha varchar(500),
     status_email enum('ativo', 'inativo') default 'inativo',
     status_fone enum('ativo', 'inativo') default 'inativo',
-    token varchar(64)
+    token varchar(64),
+    ocupação varchar(100),
+    datanasc date
 );
 
 create table projetos (
@@ -28,27 +29,49 @@ create table post (
     id_post int primary key auto_increment,
     id_user int,
     id_projeto int null,
+    id_categoria int,
     file varchar(255),
     legenda text,
     datapost datetime default current_timestamp,
-    likes int default 0,
     feed boolean default true,
 
+
     foreign key(id_user) references usuario(id_user),
-    foreign key (id_projeto) references projetos(id_projeto)
+    foreign key (id_projeto) references projetos(id_projeto),
+    foreign key (id_categoria) references categorias(id_categoria)
 );
 
 create table perfil (
     id_perfil int primary key  auto_increment,
     id_user int,
     bio text,
-    seguidores int,
-    seguindo int,
+    foto varchar(255),
 
     foreign key(id_user) references usuario(id_user)
 );
 
+create table review (
+    id_review int primary key auto_increment,
+    id_user int,
+    id_perfil int,
+    review text,
+    nota decimal(1,1),
 
+    foreign key(id_user) references usuario(id_user),
+    foreign key(id_perfil) references perfil(id_perfil)
+);
+
+create table tags (
+  id_tag int primary key auto_increment,
+  tag varchar(35)
+);
+
+create table categorias (
+  id_categoria int primary key auto_increment,
+  categoria varchar(35)
+);
+
+drop database treefolio;
 select * from usuario;
 
 
