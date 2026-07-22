@@ -3,16 +3,27 @@ use treefolio;
 
 create table usuario (
     id_user int primary key auto_increment,
-    nome varchar(50),
-    email varchar(50) unique,
-    fone  varchar(20) unique,
+    nome varchar(50) not null,
+    email varchar(50) unique not null,
+    fone  varchar(20) unique not null,
     status enum('ativo', 'inativo') default 'ativo',
-    senha varchar(500),
+    senha varchar(500) not null,
     status_email enum('ativo', 'inativo') default 'inativo',
     status_fone enum('ativo', 'inativo') default 'inativo',
     token varchar(64),
-    ocupação varchar(100),
+    ocupacao varchar(100),
     datanasc date
+);
+
+create table tags (
+  id_tag int primary key auto_increment,
+  tag varchar(35) unique
+
+);
+
+create table categorias (
+  id_categoria int primary key auto_increment,
+  categoria varchar(35) unique
 );
 
 create table projetos (
@@ -30,7 +41,7 @@ create table post (
     id_user int,
     id_projeto int null,
     id_categoria int,
-    file varchar(255),
+    arquivo varchar(255),
     legenda text,
     datapost datetime default current_timestamp,
     feed boolean default true,
@@ -43,7 +54,7 @@ create table post (
 
 create table perfil (
     id_perfil int primary key  auto_increment,
-    id_user int,
+    id_user int unique,
     bio text,
     foto varchar(255),
 
@@ -53,26 +64,46 @@ create table perfil (
 create table review (
     id_review int primary key auto_increment,
     id_user int,
-    id_perfil int,
+    id_avaliado int,
     review text,
-    nota decimal(1,1),
+    nota decimal(2,1) check (nota >= 0 and nota <=5),
 
     foreign key(id_user) references usuario(id_user),
-    foreign key(id_perfil) references perfil(id_perfil)
+    foreign key(id_avaliado) references usuario(id_user)
 );
 
-create table tags (
-  id_tag int primary key auto_increment,
-  tag varchar(35)
+
+
+create table likes (
+  id_like int primary key auto_increment,
+  id_user int,
+  id_post int null,
+  id_projeto int null,
+
+  foreign key (id_user) references usuario(id_user),
+  foreign key (id_post) references post(id_post),
+  foreign key (id_projeto) references projetos(id_projeto)
+
 );
 
-create table categorias (
-  id_categoria int primary key auto_increment,
-  categoria varchar(35)
+create table seguidores (
+
+    id_seguidor int,
+    id_seguido int,
+
+    primary key(id_seguidor, id_seguido),
+
+    foreign key(id_seguidor) references usuario(id_user),
+    foreign key (id_seguido) references usuario(id_user)
+
 );
 
-drop database treefolio;
-select * from usuario;
+create table post_tags (
+    id_post int,
+    id_tag int,
 
+    primary key (id_post, id_tag),
 
-
+    foreign key (id_post) references post(id_post),
+    foreign key (id_tag) references tags(id_tag)
+);
