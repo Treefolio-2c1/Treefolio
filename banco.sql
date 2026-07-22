@@ -71,8 +71,6 @@ create table categorias (
   categoria varchar(35)
 );
 
-drop database treefolio;
-select * from usuario;
 
 
 

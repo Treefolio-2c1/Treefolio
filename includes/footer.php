@@ -1,9 +1,5 @@
 <link rel="stylesheet" href="Static/Styles/include.css">
 
 <footer class="footer">
-
-    <p>
-        2026 Treefolio. 
-    </p>
-    
+  © 2026 <strong>treefolio</strong> — murilo, otavio e pietro
 </footer>
