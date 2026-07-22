@@ -46,29 +46,50 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
 ?>
 
 <!DOCTYPE html>
-<html>
+<html lang="pt-BR">
 <head>
-    <link rel="stylesheet" href="Static/Styles/style.css">
-
-    <title>Login</title>
-    
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Entrar — Treefolio</title>
+  <?php include "../includes/header.php"; ?>
 </head>
 <body>
 
-<h1>Login</h1>
+<nav class="navbar">
+  <a class="navbar__logo" href="../index.php">
+    <img src="../Static/img/logo.svg" alt="Treefolio">
+    <span class="navbar__logo-text">tree<span>folio</span></span>
+  </a>
+</nav>
 
-<form method="POST">
-    <label>Email:</label>
-    <input type="email" name="email" required>
-    <br><br>
-    <label>Senha:</label>
-    <input type="password" name="senha" required>
-    <br><br>
-    <button type="submit">Logar</button>
-</form>
+<div class="auth-page">
+  <div class="card auth-card card--elevated">
+
+    <div class="auth-header">
+      <img class="auth-header__logo" src="../Static/img/logo.svg" alt="Treefolio">
+    </div>
+
+    <form method="POST" action="">
+      <div class="form-group">
+        <label class="form-label" for="email">E-mail</label>
+        <input class="form-input" type="email" id="email" name="email" placeholder="seu@email.com" required autocomplete="email">
+      </div>
+      <div class="form-group">
+        <label class="form-label" for="senha">Senha</label>
+        <input class="form-input" type="password" id="senha" name="senha" placeholder="••••••••" required autocomplete="current-password">
+      </div>
+      <button type="submit" class="btn btn--primary btn--full btn--lg mt-2">Entrar</button>
+    </form>
+
+    <div class="auth-divider">ou</div>
+
+    <div class="auth-footer">
+    <a href="cadastro.php">Criar conta</a>
+    </div>
+
+  </div>
+</div>
 
 <?php include "../includes/footer.php"; ?>
-
 </body>
 </html>
-

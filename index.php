@@ -3,37 +3,41 @@
 
 
 
-
-
+session_start();
+$css_path = '';
 ?>
 
 <!DOCTYPE html>
-<html lang="pt-BR" data-theme="light">
+<html lang="pt-BR">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="Static/Styles/style.css">
   <title>Treefolio</title>
+  <?php include "includes/header.php"; ?>
 </head>
 <body>
 
-<img src="Static/img/newlogo.svg" alt="logo_treefolio" width=200>
+<nav class="navbar">
+  <a class="navbar__logo" href="index.php">
+  <img class="hero__logo" src="Static/img/newlogo.svg">
+    <span class="navbar__logo-text">tree<span>folio</span></span>
+  </a>
+  <div class="navbar__actions">
+    <a class="btn btn--ghost" href="auth/login.php">Entrar</a>
+    <a class="btn btn--primary" href="auth/cadastro.php">Cadastrar</a>
+  </div>
+</nav>
 
-<h1>Index</h1>
+<main class="hero">
+  <img class="hero__logo" src="Static/img/newlogo.svg">
+  <h1 class="hero__title">slogan,<br><span>slogan</span></h1>
+  <p class="hero__subtitle"> elaborar paragrafo</p>
+  <div class="hero__actions">
+    <a class="btn btn--primary btn--lg" href="auth/cadastro.php">criar conta</a>
+    <a class="btn btn--ghost btn--lg" href="auth/login.php">login</a>
+  </div>
+</main>
 
-<button onclick="window.location.href='auth/cadastro.php'">
-    Cadastro
-</button>
-
-<button onclick="window.location.href='auth/login.php'">
-    Login
-</button>
-
-<button onclick="window.location.href='auth/logout.php'">
-    Logout
-</button>
-
-<?php include "../includes/footer.php"; ?>
-
+<?php include "includes/footer.php"; ?>
 </body>
 </html>

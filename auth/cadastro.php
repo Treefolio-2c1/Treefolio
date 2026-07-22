@@ -65,31 +65,64 @@
 ?>
 
 <!DOCTYPE html>
-<html lang="pt-BR" data-theme="light">
+<html lang="pt-BR">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="Static/Styles/style.css">
-    <title>Criar conta — Treefolio</title>
-
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Criar conta — Treefolio</title>
+  <?php include "../includes/header.php"; ?>
 </head>
 <body>
 
-<form method="POST">
-    <input type="text" name="nome" placeholder="Nome" required><br><br>
-    <input type="email" name="email" placeholder="Email" required><br><br>
-    <input type="password" name="senha" placeholder="Senha" required><br><br>
-    <input type="password" name="confirmar" placeholder="Confirmar senha" required><br><br>
-    <button type="submit">Cadastrar</button>
-</form>
+<nav class="navbar">
+  <a class="navbar__logo" href="../index.php">
+    <img src="../Static/img/logo.svg" alt="Treefolio">
+    <span class="navbar__logo-text">tree<span>folio</span></span>
+  </a>
+</nav>
 
-<br>
+<div class="auth-page">
+  <div class="card auth-card card--elevated">
 
-<button onclick="window.location.href='../index.php'">
-    Voltar
-</button>
+    <div class="auth-header">
+      <img class="auth-header__logo" src="../Static/img/logo.svg" alt="Treefolio">
+      <h1 class="heading-lg">Criar conta</h1>
+      <p class="text-muted mt-1">slogan</p>
+    </div>
+
+    <?php if (!empty($erro)): ?>
+      <div class="alert alert--error mb-2">⚠️ <?= htmlspecialchars($erro) ?></div>
+    <?php endif; ?>
+
+    <form method="POST" action="">
+      <div class="form-group">
+        <label class="form-label" for="nome">Nome completo</label>
+        <input class="form-input" type="text" id="nome" name="nome" placeholder="Seu nome" required autocomplete="name">
+      </div>
+      <div class="form-group">
+        <label class="form-label" for="email">E-mail</label>
+        <input class="form-input" type="email" id="email" name="email" placeholder="seu@email.com" required autocomplete="email">
+      </div>
+      <div class="form-group">
+        <label class="form-label" for="senha">Senha</label>
+        <input class="form-input" type="password" id="senha" name="senha" placeholder="Mínimo 8 caracteres" required minlength="8" autocomplete="new-password">
+      </div>
+      <div class="form-group">
+        <label class="form-label" for="confirmar">Confirmar senha</label>
+        <input class="form-input" type="password" id="confirmar" name="confirmar" placeholder="Repita a senha" required minlength="8" autocomplete="new-password">
+      </div>
+      <button type="submit" class="btn btn--primary btn--full btn--lg mt-2">Criar conta</button>
+    </form>
+
+    <div class="auth-divider">ou</div>
+
+    <div class="auth-footer">
+    <a href="login.php">entrar</a>
+    </div>
+
+  </div>
+</div>
 
 <?php include "../includes/footer.php"; ?>
-
 </body>
 </html>
