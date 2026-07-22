@@ -10,6 +10,8 @@
         $email = $_POST['email'];
         $senha = $_POST['senha'];
         $confirmar = $_POST['confirmar'];
+        $ocupacao = $_POST['ocupacao'];
+        $data = $_POST['data'];
     
     
     if($senha !== $confirmar){
@@ -21,8 +23,8 @@
 
     $token = bin2hex(random_bytes(32));
 
-    $sql = "INSERT INTO usuario (nome, email, senha, ativo, token)
-            VALUES (?, ?, ?, ?, ?)";
+    $sql = "INSERT INTO usuario (nome, email, senha, ativo, token, datanasc, ocupacao)
+            VALUES (?, ?, ?, ?, ?, ?, ?)";
 
     $stmt = $pdo->prepare($sql);
 
@@ -31,7 +33,9 @@
         $email,
         $senha,
         0,
-        $token
+        $token,
+        $data,
+        $ocupacao
     ]);
 
     $link = "http://192.168.1.11/Treefolio/auth/confirmar.php?token=".$token;
@@ -102,6 +106,14 @@
       <div class="form-group">
         <label class="form-label" for="email">E-mail</label>
         <input class="form-input" type="email" id="email" name="email" placeholder="seu@email.com" required autocomplete="email">
+      </div>
+      <div class="form-group">
+        <label class="form-label" for="nome">Ocupação Atual</label>
+        <input class="form-input" type="text" id="ocupacao" name="ocupacao" placeholder="Sua Ocupação" required autocomplete="Ocucação">
+      </div>
+      <div class="form-group">
+        <label class="form-label" for="nome">Data de Nascimento</label>
+        <input class="form-input" type="date" id="data" name="data" placeholder="Sua Data de Nascimento" required autocomplete="name">
       </div>
       <div class="form-group">
         <label class="form-label" for="senha">Senha</label>
