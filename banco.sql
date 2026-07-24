@@ -28,9 +28,11 @@ create table categorias (
 
 create table projetos (
     id_projeto int primary key auto_increment,
-    id_user int,
+    id_user int NOT NULL,
     titulo varchar(50) not null,
     descricao text,
+    categoria varchar(50),
+    capa varchar(255),
     dataproj datetime default current_timestamp,
 
     foreign key (id_user) references usuario(id_user)

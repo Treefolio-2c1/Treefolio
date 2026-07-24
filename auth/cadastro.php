@@ -113,11 +113,11 @@
       </div>
       <div class="form-group">
         <label class="form-label" for="nome">Data de Nascimento</label>
-        <input class="form-input" type="date" id="data" name="data" placeholder="Sua Data de Nascimento" required autocomplete="name">
+        <input class="form-input" type="date" id="data" name="data" placeholder="Sua Data de Nascimento" required>
       </div>
       <div class="form-group">
         <label class="form-label" for="senha">Senha</label>
-        <input class="form-input" type="password" id="senha" name="senha" placeholder="Mínimo 8 caracteres" required minlength="8" autocomplete="new-password">
+        <input class="form-input" type="password" id="senha" name="senha" placeholder="Mínimo 8 caracteres" required minlength="8" autocomplete="password">
       </div>
       <div class="form-group">
         <label class="form-label" for="confirmar">Confirmar senha</label>
