@@ -51,6 +51,18 @@ if(!$projeto){
 
 <p>Categoria: <?= htmlspecialchars($projeto['categoria']) ?></p>
 
+<!-- botao de criar post
+
+<?php if(isset($_SESSION['id_user']) && $projeto['id_user'] == $_SESSION['id_user']): ?>
+
+<a href="../posts/criar.php?id=<?= $projeto['id_projeto'] ?>" class="btn btn--primary">
+Novo Post
+</a>
+
+<?php endif; ?>
+
+-->
+
 <?php include "../includes/footer.php"; ?>
 
 </body>

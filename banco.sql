@@ -47,6 +47,7 @@ create table post (
     legenda text,
     datapost datetime default current_timestamp,
     feed boolean default true,
+    tipo varchar(20),
 
 
     foreign key(id_user) references usuario(id_user),
@@ -97,6 +98,22 @@ create table seguidores (
 
     foreign key(id_seguidor) references usuario(id_user),
     foreign key (id_seguido) references usuario(id_user)
+
+);
+
+create table comentarios (
+
+    id_comentario int primary key auto_increment,
+
+    id_post int not null,
+    id_user int not null,
+
+    comentario text not null,
+
+    datacomentario datetime default current_timestamp,
+
+    foreign key(id_post) references post(id_post),
+    foreign key(id_user) references usuario(id_user)
 
 );
 
