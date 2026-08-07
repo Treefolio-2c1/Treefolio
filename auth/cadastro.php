@@ -80,7 +80,7 @@
 
 <nav class="navbar">
   <a class="navbar__logo" href="../index.php">
-    <img src="../Static/img/logo.svg" alt="Treefolio">
+    <img src="../Static/img/newlogo.svg" alt="Treefolio">
     <span class="navbar__logo-text">tree<span>folio</span></span>
   </a>
 </nav>
@@ -89,7 +89,7 @@
   <div class="card auth-card card--elevated">
 
     <div class="auth-header">
-      <img class="auth-header__logo" src="../Static/img/logo.svg" alt="Treefolio">
+      <img class="auth-header__logo" src="../Static/img/newlogo.svg" alt="Treefolio">
       <h1 class="heading-lg">Criar conta</h1>
       <p class="text-muted mt-1">slogan</p>
     </div>

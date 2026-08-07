@@ -8,7 +8,6 @@ if (!isset($_GET["token"])) {
 
 $token = $_GET["token"];
 
-
 $sql = "SELECT id_user, ativo
         FROM usuario
         WHERE token = ?";
@@ -22,7 +21,6 @@ if (!$usuario) {
     die("Link inválido ou expirado.");
 }
 
-// Ativa a conta e remove o token
 $sql = "UPDATE usuario
         SET ativo = 1,
             token = NULL
@@ -32,22 +30,31 @@ $stmt = $pdo->prepare($sql);
 $stmt->execute([$usuario["id_user"]]);
 
 ?>
-
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-    <meta charset="UTF-8">
-    <title>Conta confirmada</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Conta confirmada — Treefolio</title>
+  <?php include "../includes/header.php"; ?>
 </head>
 <body>
 
-<h1>Conta confirmada!</h1>
+<nav class="navbar">
+  <a class="navbar__logo" href="../index.php">
+    <img src="../Static/img/newlogo.svg" alt="Treefolio">
+    <span class="navbar__logo-text">tree<span>folio</span></span>
+  </a>
+</nav>
 
-<p>Sua conta foi ativada com sucesso.</p>
+<div class="info-page">
+  <div class="card info-card card--elevated">
+    <h1 class="info-card__title">Conta confirmada!</h1>
+    <p class="info-card__body">conta ativada com sucesso.</p>
+    <a class="btn btn--primary btn--lg" href="login.php">Ir para o login</a>
+  </div>
+</div>
 
-<a href="login.php">
-    Ir para o login
-</a>
-
+<?php include "../includes/footer.php"; ?>
 </body>
 </html>
