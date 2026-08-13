@@ -117,13 +117,11 @@ create table comentarios (
 
 );
 
-<<<<<<< HEAD
+
 create table post_tags (
     id_post int,
     id_tag int,
-=======
 
->>>>>>> a9496640607df368ddd9ca08a028b8a5a47b9d1d
 
     primary key (id_post, id_tag),
 
