@@ -23,8 +23,8 @@
 
     $token = bin2hex(random_bytes(32));
 
-    $sql = "INSERT INTO usuario (nome, email, senha, ativo, token, datanasc, ocupacao)
-            VALUES (?, ?, ?, ?, ?, ?, ?)";
+    $sql = "INSERT INTO usuario (nome, email, senha, token, datanasc, ocupacao)
+            VALUES (?, ?, ?, ?, ?, ?)";
 
     $stmt = $pdo->prepare($sql);
 
@@ -32,7 +32,6 @@
         $nome,
         $email,
         $senha,
-        0,
         $token,
         $data,
         $ocupacao
