@@ -37,10 +37,16 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
     $_SESSION["id_user"] = $usuario["id_user"];
     $_SESSION["nome"] = $usuario["nome"];
     $_SESSION["email"] = $usuario["email"];
+    $_SESSION["adm"] = $usuario["adm"];
 
+
+    if($usuario["adm"] == 1){
+      header("location ../admin.php");
+      exit;
+    } else{
     header("Location: ../index.php");
     exit;
-
+    }
 }
 
 ?>

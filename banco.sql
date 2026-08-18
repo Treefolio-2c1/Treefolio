@@ -12,7 +12,8 @@ create table usuario (
     status_fone enum('ativo', 'inativo') default 'inativo',
     token varchar(64),
     ocupacao varchar(100),
-    datanasc date
+    datanasc date,
+    adm enum(1, 0) default 0
 );
 
 create table tags (
