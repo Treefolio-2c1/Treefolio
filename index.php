@@ -1,7 +1,7 @@
 <?php
 session_start();
 
-require "config/conexao.php";
+require "../config/conexao.php";
 
 $sql = "SELECT * FROM projetos ORDER BY dataproj DESC";
 $stmt = $pdo->prepare($sql);
@@ -79,57 +79,6 @@ Login
 </main>
 
 
-<!-- Exibir projetos
-
-<?php foreach($projetos as $projeto): ?>
-
-<div class="projeto-card">
-
-<img src="<?= $projeto['capa'] ?>" alt="Capa">
-
-<h2>
-<?= htmlspecialchars($projeto['titulo']) ?>
-</h2>
-
-<p>
-<?= htmlspecialchars($projeto['descricao']) ?>
-</p>
-
-<a href="projetos/visualizar.php?id=<?= $projeto['id_projeto'] ?>">
-Ver projeto
-</a>
-
-<?php if(isset($_SESSION['id_user']) && $projeto['id_user'] == $_SESSION['id_user']): ?>
-
-<a href="projetos/editar.php?id=<?= $projeto['id_projeto'] ?>">
-Editar
-</a>
-
-<a href="projetos/excluir.php?id=<?= $projeto['id_projeto'] ?>"
-onclick="return confirm('Tem certeza que deseja excluir?')">
-Excluir
-</a>
-
-<?php endif; ?>
-
-</div>
-
-<?php endforeach; ?>
-
--->
-
-
-<!-- Botão criar projeto
-
-<?php if(isset($_SESSION['id_user'])): ?>
-
-<a href="projetos/criar.php" class="btn btn--primary">
-Criar projeto
-</a>
-
-<?php endif; ?>
-
--->
 
 <?php include "includes/footer.php"; ?>
 
