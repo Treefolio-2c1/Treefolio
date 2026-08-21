@@ -13,7 +13,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $capa = $_FILES["capa"]["name"];
     $tmp = $_FILES["capa"]["tmp_name"];
 
-    $pasta = "uploads/projetos/";
+    $pasta = "../uploads/projetos/";
     $destino = $pasta . $capa;
 
     move_uploaded_file($tmp, $destino);

@@ -31,6 +31,13 @@ if (!$projeto) {
     <h1><?= htmlspecialchars($projeto['titulo']) ?></h1>
     <p><?= htmlspecialchars($projeto['descricao']) ?></p>
     <p>Categoria: <?= htmlspecialchars($projeto['categoria']) ?></p>
+
+
+    <form action="like.php" method="POST">
+    <input type="hidden" name="id_projeto" value="<?= $projeto['id_projeto'] ?>">
+    <button type="submit">❤️ Curtir</button>
+    </form>
+
     <?php if (!empty($projeto['capa'])): ?>
         <img src="uploads/projetos/<?= htmlspecialchars($projeto['capa']) ?>" alt="Capa do projeto" width="500">
     <?php endif; ?>

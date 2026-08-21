@@ -13,6 +13,7 @@ create table usuario (
     token varchar(64),
     ocupacao varchar(100),
     datanasc date,
+    foto VARCHAR(255),
     adm enum(1, 0) default 0
 );
 
@@ -45,6 +46,7 @@ create table post (
     id_projeto int null,
     id_categoria int,
     arquivo varchar(255),
+    capa varchar(255),
     legenda text,
     datapost datetime default current_timestamp,
     feed boolean default true,
@@ -60,7 +62,7 @@ create table perfil (
     id_perfil int primary key  auto_increment,
     id_user int unique,
     bio text,
-    foto varchar(255),
+
 
     foreign key(id_user) references usuario(id_user)
 );

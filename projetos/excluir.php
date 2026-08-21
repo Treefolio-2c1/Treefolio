@@ -19,7 +19,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $id_user
     ]);
 
-    header("Location: projetos.php");
+    header("Location: visualizar.php");
     exit;
 }
 
