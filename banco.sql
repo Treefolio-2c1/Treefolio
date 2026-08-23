@@ -131,3 +131,15 @@ create table post_tags (
     foreign key (id_post) references post(id_post),
     foreign key (id_tag) references tags(id_tag)
 );
+
+create table curriculo (
+    id_curriculo int primary key auto_increment,
+    id_user int unique not null,
+    formacao text,
+    experiencia text,
+    habilidades text,
+    cursos text,
+    idiomas text,
+
+    foreign key (id_user) references usuario(id_user)
+);
