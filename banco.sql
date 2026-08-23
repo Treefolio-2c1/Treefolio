@@ -120,6 +120,17 @@ create table comentarios (
 
 );
 
+create table visualizacoes (
+    id_visualizacao int primary key auto_increment,
+    id_user int not null,
+    id_post int null,
+    id_projeto int null,
+    datavisualizacao datetime default current_timestamp,
+
+    foreign key (id_user) references usuario(id_user),
+    foreign key (id_post) references post(id_post),
+    foreign key (id_projeto) references projetos(id_projeto)
+);
 
 create table post_tags (
     id_post int,
