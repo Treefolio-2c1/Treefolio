@@ -4,7 +4,7 @@ session_start();
 
 require_once "../config/conexao.php";
 
-if($_SERVER["REQUEST_METHOD"] == "POST"){
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     $email = $_POST["email"];
     $senha = $_POST["senha"];
@@ -22,14 +22,24 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
     $usuario = $stmt->fetch();
 
 
-    if(!$usuario){
+    if (!$usuario) {
         echo "Email ou senha inválidos";
         exit;
     }
 
 
-    if(!password_verify($senha, $usuario["senha"])){
+    if (!password_verify($senha, $usuario["senha"])) {
         echo "Email ou senha inválidos";
+        exit;
+    }
+
+    if ($usuario["status_email"] !== "ativo") {
+        echo "Confirme seu e-mail antes de entrar. Verifique sua caixa de entrada.";
+        exit;
+    }
+
+    if ($usuario["status"] !== "ativo") {
+        echo "Sua conta está desativada. Fale com o suporte.";
         exit;
     }
 
@@ -40,12 +50,12 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
     $_SESSION["adm"] = $usuario["adm"];
 
 
-    if($usuario["adm"] == 1){
-      header("location ../admin.php");
-      exit;
-    } else{
-    header("Location: ../index.php");
-    exit;
+    if ($usuario["adm"] == 1) {
+        header("Location: admin.php");
+        exit;
+    } else {
+        header("Location: ../index.php");
+        exit;
     }
 }
 

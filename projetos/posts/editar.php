@@ -1,7 +1,7 @@
 <?php
 
-session_start();
-require_once "conexao.php";
+require_once __DIR__ . "/../../auth/auth.php";
+require_once __DIR__ . "/../../config/conexao.php";
 
 $id_post = $_GET['id_post'];
 $id_user = $_SESSION['id_user'];
@@ -43,7 +43,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $id_user
     ]);
 
-    header("Location: visualizar_post.php?id_post=" . $id_post);
+    header("Location: visualizar.php?id_post=" . $id_post);
     exit;
 }
 

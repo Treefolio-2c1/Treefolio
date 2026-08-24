@@ -1,6 +1,6 @@
 <?php
 session_start();
-require_once "conexao.php";
+require_once __DIR__ . "/../../config/conexao.php";
 
 $id_post = $_GET['id_post'];
 
@@ -36,16 +36,16 @@ $comentarios = $stmt->fetchAll(PDO::FETCH_ASSOC);
     <h1><?= htmlspecialchars($post['tipo']) ?></h1>
     <p><?= htmlspecialchars($post['legenda']) ?></p>
     <p>Data: <?= htmlspecialchars($post['datapost']) ?></p>
-    <p>Arquivo: <a href="uploads/posts/<?= htmlspecialchars($post['arquivo']) ?>" target="_blank">Abrir arquivo</a></p>
+    <p>Arquivo: <a href="../../uploads/posts/<?= htmlspecialchars($post['arquivo']) ?>" target="_blank">Abrir arquivo</a></p>
 
     <form action="like.php" method="POST">
         <input type="hidden" name="id_post" value="<?= $post['id_post'] ?>">
         <button type="submit">Curtir</button>
     </form>
 
-    <?php if ($post['id_user'] == $_SESSION['id_user']): ?>
-        <a href="editar_post.php?id_post=<?= $post['id_post'] ?>">Editar post</a>
-        <form action="excluir_post.php" method="POST">
+    <?php if (isset($_SESSION['id_user']) && $post['id_user'] == $_SESSION['id_user']): ?>
+        <a href="editar.php?id_post=<?= $post['id_post'] ?>">Editar post</a>
+        <form action="excluir.php" method="POST">
             <input type="hidden" name="id_post" value="<?= $post['id_post'] ?>">
             <button type="submit">Excluir post</button>
         </form>
@@ -65,7 +65,7 @@ $comentarios = $stmt->fetchAll(PDO::FETCH_ASSOC);
             <p><?= htmlspecialchars($comentario['comentario']) ?></p>
             <small><?= htmlspecialchars($comentario['datacomentario']) ?></small>
 
-            <?php if ($comentario['id_user'] == $_SESSION['id_user']): ?>
+            <?php if (isset($_SESSION['id_user']) && $comentario['id_user'] == $_SESSION['id_user']): ?>
                 <form action="comentarios/excluir.php" method="POST">
                     <input type="hidden" name="id_comentario" value="<?= $comentario['id_comentario'] ?>">
                     <input type="hidden" name="id_post" value="<?= $post['id_post'] ?>">

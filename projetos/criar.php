@@ -1,7 +1,7 @@
 <?php
 
-session_start();
-require_once "conexao.php";
+require_once __DIR__ . "/../auth/auth.php";
+require_once __DIR__ . "/../config/conexao.php";
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
@@ -10,33 +10,41 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $descricao = $_POST["descr"];
     $categoria = $_POST["tipo"];
 
-    $capa = $_FILES["capa"]["name"];
+    $capa_nome = $_FILES["capa"]["name"];
     $tmp = $_FILES["capa"]["tmp_name"];
 
-    $pasta = "../uploads/projetos/";
-    $destino = $pasta . $capa;
+    $capa = uniqid() . "_" . basename($capa_nome);
 
-    move_uploaded_file($tmp, $destino);
+    $pasta = "../uploads/projetos/";
+
+    if (!is_dir($pasta)) {
+        mkdir($pasta, 0777, true);
+    }
+
+    move_uploaded_file($tmp, $pasta . $capa);
 
     $sql = "INSERT INTO projetos 
         (id_user, titulo, descricao, categoria, capa)
         VALUES (?, ?, ?, ?, ?)";
 
-$stmt = $pdo->prepare($sql);
+    $stmt = $pdo->prepare($sql);
 
-$stmt->execute([
-    $id_user,
-    $titulo,
-    $descricao,
-    $categoria,
-    $capa
-]);
+    $stmt->execute([
+        $id_user,
+        $titulo,
+        $descricao,
+        $categoria,
+        $capa
+    ]);
+
+    header("Location: visualizar.php?id_projeto=" . $pdo->lastInsertId());
+    exit;
 
 }
 ?>
 
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-br">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -44,7 +52,7 @@ $stmt->execute([
 </head>
 <body>
     
-<form method="POST" action="">
+<form method="POST" action="" enctype="multipart/form-data">
     <div class="form-group">
         <label class="form-label">Nome do Projeto</label>
         <input class="form-input" type="text" id="nome" name="nome" placeholder="Projeto Treefolio" required>
@@ -61,6 +69,7 @@ $stmt->execute([
         <label class="form-label">Capa do Projeto</label>
         <input class="form-input" type="file" id="capa" name="capa" accept="image/*" required>
     </div>
+    <button type="submit">Criar projeto</button>
 </form>
 
 

@@ -1,7 +1,7 @@
 <?php
 
+require_once __DIR__ . "/../auth/auth.php";
 require_once __DIR__ . "/../config/conexao.php";
-session_start();
 
 $id_user = $_SESSION['id_user'];
 
@@ -20,7 +20,7 @@ $row2 = $stmt->fetch(PDO::FETCH_ASSOC);
 $nome = $row['nome'];
 $ocu = $row['ocupacao'];
 $bio = $row2['bio'];
-$foto = $row2['foto'];
+$foto = $row['foto'];
 
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
@@ -60,12 +60,16 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
         $pasta = "../uploads/perfil/";
 
+        if (!is_dir($pasta)) {
+            mkdir($pasta, 0777, true);
+        }
+
         move_uploaded_file(
             $_FILES['foto']['tmp_name'],
             $pasta . $nome_foto
         );
 
-        $sql = "UPDATE perfil
+        $sql = "UPDATE usuario
                 SET foto = ?
                 WHERE id_user = ?";
 
@@ -108,7 +112,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         </div>
         <div>
             <label>Biografia</label>
-            <textarea name="bio"><?= htmlspecialchars($bio) ?></textarea>
+            <textarea name="bio"><?= htmlspecialchars($bio ?? '') ?></textarea>
         </div>
         <div>
             <label>Foto de perfil</label>

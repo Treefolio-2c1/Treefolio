@@ -1,11 +1,9 @@
 <?php
 
+require_once __DIR__ . "/../auth/auth.php";
 require_once __DIR__ . "/../config/conexao.php";
-session_start();
 
-$_id = $_SESSION['id_user'];
-
-$sql= "SELECT * from usuario WHERE id_user = ?";
+$sql = "SELECT * from usuario WHERE id_user = ?";
 $stmt = $pdo->prepare($sql);
 $stmt->execute([$_SESSION['id_user']]);
 
@@ -16,14 +14,13 @@ $foto = $row['foto'];
 $ocu = $row['ocupacao'];
 
 
-$sql= "SELECT * from perfil WHERE id_user = ?";
+$sql = "SELECT * from perfil WHERE id_user = ?";
 $stmt = $pdo->prepare($sql);
 $stmt->execute([$_SESSION['id_user']]);
 
 $row2 = $stmt->fetch(PDO::FETCH_ASSOC);
 
-$bio = $row2['bio']; 
-
+$bio = $row2['bio'];
 
 ?>
 <!DOCTYPE html>
@@ -34,9 +31,7 @@ $bio = $row2['bio'];
     <title>Perfil</title>
 </head>
 <body>
-    
-</body>
-</html>
+
 <div class="perfil">
 
     <img src="../uploads/perfil/<?= htmlspecialchars($foto) ?>" alt="Foto de perfil">
@@ -47,8 +42,11 @@ $bio = $row2['bio'];
 
     <p><?= htmlspecialchars($bio) ?></p>
 
-    <a href="curriculo.php">
+    <a href="curriculo/curriculo.php">
     <button type="button">Currículo</button>
     </a>
 
 </div>
+
+</body>
+</html>

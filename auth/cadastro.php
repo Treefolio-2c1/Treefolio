@@ -3,81 +3,97 @@
 require_once("../config/conexao.php");
 require_once __DIR__ . "/../config/brevo.php";
 
+$erro = "";
+
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     $nome = $_POST['nome'];
     $email = $_POST['email'];
+    $fone = $_POST['fone'];
     $senha = $_POST['senha'];
     $confirmar = $_POST['confirmar'];
     $ocupacao = $_POST['ocupacao'];
     $data = $_POST['data'];
 
     if ($senha !== $confirmar) {
-        echo "Senhas não coincidem";
-        exit;
+        $erro = "As senhas não coincidem.";
     }
 
-    $senha = password_hash($senha, PASSWORD_DEFAULT);
+    if (empty($erro)) {
 
-    $token = bin2hex(random_bytes(32));
+        $senha_hash = password_hash($senha, PASSWORD_DEFAULT);
 
-    $foto = $_FILES['foto'];
+        $token = bin2hex(random_bytes(32));
 
-    $nome_foto = uniqid() . "_" . basename($foto['name']);
+        $foto = $_FILES['foto'];
 
-    $pasta = "../uploads/perfil/";
+        $nome_foto = uniqid() . "_" . basename($foto['name']);
 
-    if (!is_dir($pasta)) {
-        mkdir($pasta, 0777, true);
+        $pasta = "../uploads/perfil/";
+
+        if (!is_dir($pasta)) {
+            mkdir($pasta, 0777, true);
+        }
+
+        move_uploaded_file($foto['tmp_name'], $pasta . $nome_foto);
+
+        try {
+
+            $sql = "INSERT INTO usuario (nome, email, fone, senha, status, token, datanasc, ocupacao, foto)
+                    VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
+
+            $stmt = $pdo->prepare($sql);
+
+            $stmt->execute([
+                $nome,
+                $email,
+                $fone,
+                $senha_hash,
+                'ativo',
+                $token,
+                $data,
+                $ocupacao,
+                $nome_foto
+            ]);
+
+            $id_user = $pdo->lastInsertId();
+
+            $sql = "INSERT INTO perfil (id_user) VALUES (?)";
+
+            $stmt = $pdo->prepare($sql);
+
+            $stmt->execute([
+                $id_user
+            ]);
+
+            $protocolo = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off') ? "https" : "http";
+            $link = $protocolo . "://" . $_SERVER['HTTP_HOST'] . "/Treefolio/auth/confirmar.php?token=" . $token;
+
+            $assunto = "Confirme sua conta";
+
+            $mensagem = "
+            <h2>Bem-vindo ao Treefolio!</h2>
+            <p>Clique no botão abaixo para confirmar sua conta.</p>
+            <p><a href='$link'>Confirmar conta</a></p>
+            ";
+
+            $resposta = enviar_email($email, $nome, $assunto, $mensagem);
+
+            if (strpos($resposta, "Erro:") !== false) {
+                $erro = "Não foi possível enviar o e-mail de confirmação. Tente novamente.";
+            } else {
+                header("Location: email.php");
+                exit;
+            }
+
+        } catch (PDOException $e) {
+            if ($e->getCode() == 23000) {
+                $erro = "Já existe uma conta com esse e-mail ou telefone.";
+            } else {
+                $erro = "Erro ao cadastrar. Tente novamente.";
+            }
+        }
     }
-
-    move_uploaded_file($foto['tmp_name'], $pasta . $nome_foto);
-
-    $sql = "INSERT INTO usuario (nome, email, senha, status, token, datanasc, ocupacao)
-            VALUES (?, ?, ?, ?, ?, ?, ?)";
-
-    $stmt = $pdo->prepare($sql);
-
-    $stmt->execute([
-        $nome,
-        $email,
-        $senha,
-        'ativo',
-        $token,
-        $data,
-        $ocupacao
-    ]);
-
-    $id_user = $pdo->lastInsertId();
-
-    $sql = "INSERT INTO perfil (id_user, foto)
-            VALUES (?, ?)";
-
-    $stmt = $pdo->prepare($sql);
-
-    $stmt->execute([
-        $id_user,
-        $nome_foto
-    ]);
-
-    $link = "http://192.168.1.11/Treefolio/auth/confirmar.php?token=" . $token;
-
-    $assunto = "Confirme sua conta";
-
-    $mensagem = "
-    <h2>Bem-vindo ao Treefolio!</h2>
-    <p>Clique no botão abaixo para confirmar sua conta.</p>
-    <p><a href='$link'>Confirmar conta</a></p>
-    ";
-
-    $resposta = enviar_email($email, $nome, $assunto, $mensagem);
-
-    if (strpos($resposta, "Erro:") !== false) {
-        die($resposta);
-    }
-
-    header("Location: email.php");
-    exit;
 }
 
 ?>
@@ -124,6 +140,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             <div class="form-group">
                 <label class="form-label" for="email">E-mail</label>
                 <input class="form-input" type="email" id="email" name="email" placeholder="seu@email.com" required autocomplete="email">
+            </div>
+
+            <div class="form-group">
+                <label class="form-label" for="fone">Telefone</label>
+                <input class="form-input" type="tel" id="fone" name="fone" placeholder="(11) 91234-5678" required autocomplete="tel">
             </div>
 
             <div class="form-group">

@@ -1,7 +1,7 @@
 <?php
 
-session_start();
-require_once "conexao.php";
+require_once __DIR__ . "/../../auth/auth.php";
+require_once __DIR__ . "/../../config/conexao.php";
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
@@ -9,31 +9,36 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $legenda = $_POST['legenda'];
     $tipo = $_POST['tipo'];
 
-    $nome_capa = $_FILES['capa']['name'];
     $tmp_capa = $_FILES['capa']['tmp_name'];
+    $nome_capa = uniqid() . "_" . basename($_FILES['capa']['name']);
 
-    $nome_arquivo = $_FILES['arquivo']['name'];
     $tmp_arquivo = $_FILES['arquivo']['tmp_name'];
+    $nome_arquivo = uniqid() . "_" . basename($_FILES['arquivo']['name']);
 
-    $pasta = "../uploads/posts/";
+    $pasta = "../../uploads/posts/";
+
+    if (!is_dir($pasta)) {
+        mkdir($pasta, 0777, true);
+    }
 
     move_uploaded_file($tmp_capa, $pasta . $nome_capa);
     move_uploaded_file($tmp_arquivo, $pasta . $nome_arquivo);
 
     $sql = "INSERT INTO post
-            (id_user, arquivo, legenda, tipo)
-            VALUES (?, ?, ?, ?)";
+            (id_user, arquivo, capa, legenda, tipo)
+            VALUES (?, ?, ?, ?, ?)";
 
     $stmt = $pdo->prepare($sql);
 
     $stmt->execute([
         $id_user,
         $nome_arquivo,
+        $nome_capa,
         $legenda,
         $tipo
     ]);
 
-    header("Location: visualizar_post.php?id_post=" . $pdo->lastInsertId());
+    header("Location: visualizar.php?id_post=" . $pdo->lastInsertId());
     exit;
 }
 

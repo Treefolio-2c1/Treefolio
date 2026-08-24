@@ -1,7 +1,7 @@
 <?php
 
+require_once __DIR__ . "/../../auth/auth.php";
 require_once __DIR__ . "/../../config/conexao.php";
-session_start();
 
 $id_user = $_SESSION['id_user'];
 
@@ -77,8 +77,6 @@ $projetos = $stmt->fetchAll(PDO::FETCH_ASSOC);
     <?php endif; ?>
 
     <br>
-
-    <a href="editar.php"><button type="button">Editar currículo</button></a>
 
     <a href="editar.php"><button type="button">Editar currículo</button></a>
 

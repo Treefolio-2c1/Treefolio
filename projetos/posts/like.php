@@ -1,7 +1,7 @@
 <?php
 
-session_start();
-require_once "conexao.php";
+require_once __DIR__ . "/../../auth/auth.php";
+require_once __DIR__ . "/../../config/conexao.php";
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
@@ -47,7 +47,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         ]);
     }
 
-    header("Location: visualizar_post.php?id_post=" . $id_post);
+    header("Location: visualizar.php?id_post=" . $id_post);
     exit;
 }
 

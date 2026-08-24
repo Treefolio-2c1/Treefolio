@@ -1,6 +1,6 @@
 <?php
 
-session_start();
+require_once __DIR__ . "/../../../auth/auth.php";
 require_once __DIR__ . "/../../../config/conexao.php";
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {

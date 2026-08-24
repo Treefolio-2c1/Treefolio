@@ -1,7 +1,7 @@
 <?php
 
-session_start();
-require_once "conexao.php";
+require_once __DIR__ . "/../auth/auth.php";
+require_once __DIR__ . "/../config/conexao.php";
 
 $id_projeto = $_GET['id_projeto'];
 $id_user = $_SESSION['id_user'];

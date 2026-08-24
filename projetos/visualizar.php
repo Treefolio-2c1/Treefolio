@@ -1,7 +1,7 @@
 <?php
 
 session_start();
-require_once "conexao.php";
+require_once __DIR__ . "/../config/conexao.php";
 
 $id_projeto = $_GET['id_projeto'];
 
@@ -39,10 +39,10 @@ if (!$projeto) {
     </form>
 
     <?php if (!empty($projeto['capa'])): ?>
-        <img src="uploads/projetos/<?= htmlspecialchars($projeto['capa']) ?>" alt="Capa do projeto" width="500">
+        <img src="../uploads/projetos/<?= htmlspecialchars($projeto['capa']) ?>" alt="Capa do projeto" width="500">
     <?php endif; ?>
 
-    <?php if ($projeto['id_user'] == $_SESSION['id_user']): ?>
+    <?php if (isset($_SESSION['id_user']) && $projeto['id_user'] == $_SESSION['id_user']): ?>
 
         <form action="excluir.php" method="POST">
             <input type="hidden" name="id_projeto" value="<?= $projeto['id_projeto'] ?>">

@@ -8,7 +8,7 @@ if (!isset($_GET["token"])) {
 
 $token = $_GET["token"];
 
-$sql = "SELECT id_user, ativo
+$sql = "SELECT id_user, status_email
         FROM usuario
         WHERE token = ?";
 
@@ -22,7 +22,7 @@ if (!$usuario) {
 }
 
 $sql = "UPDATE usuario
-        SET ativo = 1,
+        SET status_email = 'ativo',
             token = NULL
         WHERE id_user = ?";
 

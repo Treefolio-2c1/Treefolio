@@ -1,7 +1,7 @@
 <?php
 session_start();
 
-require "../config/conexao.php";
+require __DIR__ . "/config/conexao.php";
 
 $sql = "SELECT * FROM projetos ORDER BY dataproj DESC";
 $stmt = $pdo->prepare($sql);
