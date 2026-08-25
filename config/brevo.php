@@ -3,7 +3,7 @@
 function enviar_email($destinatario, $nome, $assunto, $mensagem)
 {
 
-    $apikey = "";
+    $apikey = "temporario";
 
     $dados = [
         "sender" => [

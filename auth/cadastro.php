@@ -1,7 +1,7 @@
 <?php
 
 require_once("../config/conexao.php");
-require_once __DIR__ . "/../config/brevo.php";
+require_once __DIR__ . "/../config/mailer.php";
 
 $erro = "";
 
