@@ -8,19 +8,37 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $id_projeto = $_POST['id_projeto'];
     $id_user = $_SESSION['id_user'];
 
-    $sql = "DELETE FROM projetos
-            WHERE id_projeto = ?
-            AND id_user = ?";
+    try {
 
-    $stmt = $pdo->prepare($sql);
+        $pdo->beginTransaction();
 
-    $stmt->execute([
-        $id_projeto,
-        $id_user
-    ]);
+        $sql = "DELETE FROM likes
+                WHERE id_projeto = ?";
 
-    header("Location: ../perfil/perfil.php");
-    exit;
+        $stmt = $pdo->prepare($sql);
+        $stmt->execute([$id_projeto]);
+
+        $sql = "DELETE FROM projetos
+                WHERE id_projeto = ?
+                AND id_user = ?";
+
+        $stmt = $pdo->prepare($sql);
+        $stmt->execute([
+            $id_projeto,
+            $id_user
+        ]);
+
+        $pdo->commit();
+
+        header("Location: ../perfil/perfil.php");
+        exit;
+
+    } catch (PDOException $e) {
+
+        $pdo->rollBack();
+
+        die("Erro ao excluir o projeto.");
+    }
 }
 
 ?>

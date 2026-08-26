@@ -12,73 +12,90 @@ $projetos = $stmt->fetchAll(PDO::FETCH_ASSOC);
 $css_path = '';
 ?>
 
+
 <!DOCTYPE html>
 <html lang="pt-BR">
+
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Treefolio</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Treefolio</title>
 
-<?php include "includes/header.php"; ?>
-
+    <?php include "includes/header.php"; ?>
 </head>
 
 <body>
 
 <nav class="navbar">
 
-<a class="navbar__logo" href="index.php">
+    <a class="navbar__logo" href="index.php">
 
-<img class="hero__logo" src="Static/img/newlogo.svg">
+        <img class="hero__logo" src="Static/img/newlogo.svg">
 
-<span class="navbar__logo-text">
-tree<span>folio</span>
-</span>
+        <span class="navbar__logo-text">
+            tree<span>folio</span>
+        </span>
 
-</a>
+    </a>
 
-<div class="navbar__actions">
+    <div class="navbar__actions">
 
-<a class="btn btn--ghost" href="auth/login.php">
-Entrar
-</a>
+        <?php if (!isset($_SESSION['id_user'])): ?>
 
-<a class="btn btn--primary" href="auth/cadastro.php">
-Cadastrar
-</a>
+            <a class="btn btn--ghost" href="auth/login.php">
+                Entrar
+            </a>
 
-</div>
+            <a class="btn btn--primary" href="auth/cadastro.php">
+                Cadastrar
+            </a>
+
+        <?php else: ?>
+
+            <a class="btn btn--ghost" href="perfil/perfil.php">
+                Meu perfil
+            </a>
+
+            <a class="btn btn--primary" href="auth/logout.php">
+                Sair
+            </a>
+
+        <?php endif; ?>
+
+    </div>
 
 </nav>
 
 <main class="hero">
 
-<img class="hero__logo" src="Static/img/newlogo.svg">
+    <img class="hero__logo" src="Static/img/newlogo.svg">
 
-<h1 class="hero__title">
-slogan,<br>
-<span>slogan</span>
-</h1>
+    <h1 class="hero__title">
+        slogan,<br>
+        <span>slogan</span>
+    </h1>
 
-<p class="hero__subtitle">
-elaborar paragrafo
-</p>
+    <p class="hero__subtitle">
+        elaborar paragrafo
+    </p>
 
-<div class="hero__actions">
+    <?php if (!isset($_SESSION['id_user'])): ?>
 
-<a class="btn btn--primary btn--lg" href="auth/cadastro.php">
-Criar conta
-</a>
+        <div class="hero__actions">
 
-<a class="btn btn--ghost btn--lg" href="auth/login.php">
-Login
-</a>
+            <a class="btn btn--primary btn--lg" href="auth/cadastro.php">
+                Criar conta
+            </a>
 
-</div>
+            <a class="btn btn--ghost btn--lg" href="auth/login.php">
+                Login
+            </a>
+
+        </div>
+
+    <?php endif; ?>
 
 </main>
-
-
 
 <?php include "includes/footer.php"; ?>
 
