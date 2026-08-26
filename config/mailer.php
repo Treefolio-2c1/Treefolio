@@ -12,12 +12,11 @@ function enviar_email($destinatario, $nome, $assunto, $mensagem)
     try {
         
         $mail->isSMTP();
-        $mail->SMTPDebug = 2;
-$mail->Debugoutput = 'html';
+        $mail->SMTPDebug = 0;
         $mail->Host       = "smtp.gmail.com";       
         $mail->SMTPAuth   = true;
         $mail->Username   = "treefolio0@gmail.com";  
-        $mail->Password   = "";    
+        $mail->Password   = "dsxg apnd aqrf qkcd";    
         $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
         $mail->Port       = 587;
 

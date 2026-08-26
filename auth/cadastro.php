@@ -67,7 +67,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             ]);
 
             $protocolo = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off') ? "https" : "http";
-            $link = $protocolo . "://" . $_SERVER['HTTP_HOST'] . "/Treefolio/auth/confirmar.php?token=" . $token;
+            $link = "http://192.168.1.10/Treefolio/auth/confirmar.php?token=" . $token;
 
             $assunto = "Confirme sua conta";
 
