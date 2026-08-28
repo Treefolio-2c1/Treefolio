@@ -67,7 +67,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             ]);
 
             $protocolo = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off') ? "https" : "http";
-            $link = "http://192.168.1.10/Treefolio/auth/confirmar.php?token=" . $token;
+            $link = "http://192.168.51.105/Treefolio/auth/confirmar.php?token=" . $token;
 
             $assunto = "Confirme sua conta";
 
@@ -112,7 +112,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
 <nav class="navbar">
     <a class="navbar__logo" href="../index.php">
-        <img class="navbar__logo" src="../Static/img/newlogo.svg" alt="Treefolio">
+        <img src="../Static/img/newlogo.svg" alt="Treefolio">
         <span class="navbar__logo-text">tree<span>folio</span></span>
     </a>
 </nav>

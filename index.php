@@ -71,12 +71,12 @@ $css_path = '';
     <img class="hero__logo" src="Static/img/newlogo.svg">
 
     <h1 class="hero__title">
-        slogan,<br>
-        <span>slogan</span>
+        Cresça agora com<br>
+        <span>Treefolio</span>
     </h1>
 
     <p class="hero__subtitle">
-        elaborar paragrafo
+        Seu futuro começa aqui !
     </p>
 
     <?php if (!isset($_SESSION['id_user'])): ?>
