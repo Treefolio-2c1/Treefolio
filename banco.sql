@@ -181,3 +181,5 @@ CREATE TABLE curriculo (
 
     FOREIGN KEY (id_user) REFERENCES usuario(id_user)
 );
+
+
